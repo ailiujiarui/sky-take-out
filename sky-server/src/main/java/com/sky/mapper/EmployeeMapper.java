@@ -25,4 +25,6 @@ public interface EmployeeMapper {
     Employee getEmployeeById(long id);
 
     List<Employee> getEmp(String username);
+
+    void updateEmpStatus(Employee ee );
 }

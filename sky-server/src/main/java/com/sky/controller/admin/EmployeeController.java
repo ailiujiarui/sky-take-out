@@ -101,4 +101,12 @@ public class EmployeeController {
         PageResult emp = employeeService.getEmp(epdto);
         return Result.success(emp);
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用员工")
+    public Result updateStatus(@PathVariable Integer status,Long id) {
+        log.info("修改员工状态:{},员工:{}",status,id);
+        employeeService.updateEmpStatus(status,id);
+        return Result.success();
+    }
 }

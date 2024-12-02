@@ -101,4 +101,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         PageResult pageResult =new PageResult(page1.getTotal(), page1.getResult());
         return pageResult;
     }
+
+    @Override
+    public void updateEmpStatus(Integer status, Long id) {
+        //创建员工对象进行封装
+        Employee ee = Employee.builder().status(status).id(id).build();
+        employeeMapper.updateEmpStatus(ee);
+    }
 }
