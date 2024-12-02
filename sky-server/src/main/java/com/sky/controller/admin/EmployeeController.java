@@ -3,8 +3,10 @@ package com.sky.controller.admin;
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -85,9 +88,17 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     @ApiOperation("根据id查询员工")
-    public Result<Employee> getEmployee(@PathVariable Long id) {
+    public Result<Employee> getEmployeeById(@PathVariable Long id) {
         log.info("根据id{}查询员工",id);
      Employee e =   employeeService.getEmployeeById(id);
      return Result.success(e);
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("查询员工")
+    public Result<PageResult> getEmp(EmployeePageQueryDTO epdto){
+        log.info("分页查询员工 姓名:{} ",epdto.getName());
+        PageResult emp = employeeService.getEmp(epdto);
+        return Result.success(emp);
     }
 }

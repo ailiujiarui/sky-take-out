@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface EmployeeMapper {
 
@@ -21,4 +23,6 @@ public interface EmployeeMapper {
 
     @Select("select * from employee where id=#{id}")
     Employee getEmployeeById(long id);
+
+    List<Employee> getEmp(String username);
 }
