@@ -27,4 +27,6 @@ public interface EmployeeMapper {
     List<Employee> getEmp(String username);
 
     void updateEmpStatus(Employee ee );
+
+    void update(Employee employee);
 }

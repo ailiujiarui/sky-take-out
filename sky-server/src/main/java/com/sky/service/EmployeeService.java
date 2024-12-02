@@ -24,4 +24,6 @@ public interface EmployeeService {
     PageResult getEmp(EmployeePageQueryDTO epdto);
 
     void updateEmpStatus(Integer status, Long ids);
+
+    void updateEmp(EmployeeDTO employee);
 }

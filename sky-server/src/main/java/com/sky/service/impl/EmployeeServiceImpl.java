@@ -91,6 +91,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     public Employee getEmployeeById(long id) {
         Employee employeeById = employeeMapper.getEmployeeById(id);
+        //加密密码防止泄露
+        employeeById.setPassword("*******");
         return employeeById;
     }
 
@@ -107,5 +109,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         //创建员工对象进行封装
         Employee ee = Employee.builder().status(status).id(id).build();
         employeeMapper.updateEmpStatus(ee);
+    }
+
+    @Override
+    public void updateEmp(EmployeeDTO employee) {
+        Employee emp = Employee.builder().id(employee.getId())
+                        .idNumber(employee.getIdNumber())
+                                .name(employee.getName())
+                                        .phone(employee.getPhone())
+                                                .sex(employee.getSex())
+                                                        .username(employee.getUsername())
+                                                                .updateTime(LocalDateTime.now()).build();
+
+        employeeMapper.update(emp);
     }
 }

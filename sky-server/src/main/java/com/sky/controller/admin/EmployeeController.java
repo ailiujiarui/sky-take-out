@@ -109,4 +109,12 @@ public class EmployeeController {
         employeeService.updateEmpStatus(status,id);
         return Result.success();
     }
+
+    @PutMapping
+    @ApiOperation("更新员工信息")
+    public Result updateEmployee(@RequestBody EmployeeDTO employee) {
+        log.info("更新员工:{}",employee);
+        employeeService.updateEmp(employee);
+        return Result.success();
+    }
 }
