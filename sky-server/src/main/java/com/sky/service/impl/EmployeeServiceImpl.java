@@ -79,12 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       //  employee1.setStatus(StatusConstant.ENABLE);
         //用常量写方便修改
         employee1.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        //创建时间和修改时间
-        employee1.setCreateTime(LocalDateTime.now());
-        employee1.setUpdateTime(LocalDateTime.now());
-        //用户id
-        employee1.setUpdateUser(BaseContext.getCurrentId());
-        employee1.setCreateUser(BaseContext.getCurrentId());
+       //已经由AOP实现公共字段填充
         employeeMapper.addEmployee(employee1);
     }
 
@@ -119,7 +114,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                                         .phone(employee.getPhone())
                                                 .sex(employee.getSex())
                                                         .username(employee.getUsername())
-                                                                .updateTime(LocalDateTime.now()).build();
+                                                                .build();
 
         employeeMapper.update(emp);
     }

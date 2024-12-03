@@ -13,7 +13,7 @@
 
     <update id="updateEmpStatus" parameterType="Employee">
         update employee
-        set status= #{status}, update_time=NOW()
+        set status= #{status}
         where id=#{id}
     </update>
     <update id="update">
