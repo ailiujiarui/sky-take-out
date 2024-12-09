@@ -29,11 +29,7 @@ public interface DishMapper {
      */
     @AutoFill(OperationType.INSERT)
     void save(Dish dish);
-    /**
-     * 批量插入口味数据
-     * @param flavors
-     */
-    void insertBatchFlavors(List<DishFlavor> flavors);
+
 
     /**
      * 批量删除菜品
@@ -48,12 +44,7 @@ public interface DishMapper {
      */
     ArrayList<Dish> getByIdBatch(ArrayList<Long> ids);
 
-    /**
-     * 根据菜品id判断是否有菜品被套餐绑定
-     * @param ids
-     * @return
-     */
-    Integer countMealDish(ArrayList<Long> ids);
+
 
     /**
      * 修改菜品

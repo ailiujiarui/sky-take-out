@@ -23,13 +23,7 @@
                 #{updateUser}, #{status})
     </insert>
 
-    <insert id="insertBatchFlavors">
-        insert into dish_flavor(dish_id, name, value)
-        values
-        <foreach collection="flavors" item="flavor" separator=",">
-            (#{flavor.dishId},#{flavor.name},#{flavor.value})
-        </foreach>
-    </insert>
+
 
     <delete id="deleteBatch">
         delete from dish where id in
@@ -45,12 +39,7 @@
         </foreach>
     </select>
 
-    <select id="countMealDish" resultType="java.lang.Integer">
-        select count(*) from setmeal_dish where id in
-        <foreach collection="ids" separator="," open="(" close=")" item="id">
-            #{id}
-        </foreach>
-    </select>
+
 
     <update id="updateDish">
         update dish
