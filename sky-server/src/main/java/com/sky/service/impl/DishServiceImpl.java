@@ -104,8 +104,14 @@ public class DishServiceImpl implements DishService {
         if (count > 0) {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
-
+       //批量删除菜品
         dishMapper.deleteBatch(ids);
+
+        //删除口味，有就能删除成功，没有删除不成功
+        for (Long id :ids) {
+            flavorMapper.deleteBatchFlavors(flavorMapper.getFlavorById(id));
+        }
+
 
     }
 
@@ -126,7 +132,7 @@ public class DishServiceImpl implements DishService {
         //更新菜品
         dishMapper.updateDish(dish);
         //更新菜品对应的口味
-        dishMapper.deleteBatchFlavors(flavors);
+        flavorMapper.deleteBatchFlavors(flavors);
         flavorMapper.insertBatchFlavors(flavors);
 
     }
@@ -143,7 +149,7 @@ public class DishServiceImpl implements DishService {
         Dish dish = dishMapper.getByIdBatch(ids).get(0);
 
         //根据菜品id获取该菜品的口味
-        ArrayList<DishFlavor> dishFlavors = dishMapper.getFlavorById(id);
+        ArrayList<DishFlavor> dishFlavors = flavorMapper.getFlavorById(id);
 
         DishVO dishVO = new DishVO();
         BeanUtils.copyProperties(dish, dishVO);
@@ -191,7 +197,7 @@ public class DishServiceImpl implements DishService {
             DishVO dishVO = new DishVO();
             BeanUtils.copyProperties(dishes.get(i), dishVO);
             //根据菜品id获取菜品口味
-            ArrayList<DishFlavor> flavorById = dishMapper.getFlavorById(dishes.get(i).getId());
+            ArrayList<DishFlavor> flavorById = flavorMapper.getFlavorById(dishes.get(i).getId());
             dishVO.setFlavors(flavorById);
             dishVOS.add(dishVO);
         }

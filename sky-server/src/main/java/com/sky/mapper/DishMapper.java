@@ -53,18 +53,7 @@ public interface DishMapper {
     @AutoFill(OperationType.UPDATE)
     void updateDish(Dish dish);
 
-    /**
-     * 批量删除口味
-     * @param flavors
-     */
-    void deleteBatchFlavors(List<DishFlavor> flavors);
 
-    /**
-     * 根据菜品id获取菜品口味
-     * @param id
-     * @return
-     */
-    ArrayList<DishFlavor> getFlavorById(Long id);
 
     /**
      * 根据分类id获取菜品
