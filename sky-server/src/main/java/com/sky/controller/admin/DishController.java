@@ -100,7 +100,7 @@ public class DishController {
         log.info("修改菜品:{}", dishDTO);
         dishService.updateDish(dishDTO);
 
-        cleanCache("dish_*");
+        cleanCache("dish_"+dishDTO.getCategoryId());
         return Result.success();
     }
 

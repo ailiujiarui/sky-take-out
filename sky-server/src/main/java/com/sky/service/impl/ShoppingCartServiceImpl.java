@@ -36,7 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public void add(ShoppingCartDTO shoppingCartDTO) {
-        ShoppingCart shoppingCart = new ShoppingCart();
+        /*ShoppingCart shoppingCart = new ShoppingCart();
         BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
         shoppingCart.setUserId(BaseContext.getCurrentId());
 
@@ -65,6 +65,36 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setCreateTime(LocalDateTime.now());
             //插入数据
             shoppingCartMapper.insert(shoppingCart);
+        }*/
+      //判断当前商品是否在购物车中存在
+        ShoppingCart shoppingCart= new ShoppingCart();
+        //复制数据
+        BeanUtils.copyProperties(shoppingCartDTO,shoppingCart);
+        //设置用户id
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        if(list.size()>0){
+      //存在，数量+1
+           list.get(0).setNumber(list.get(0).getNumber()+1);
+           shoppingCartMapper.update(list.get(0));
+        }
+        //不存在，插入数据
+        else{
+            if (shoppingCartDTO.getDishId()!=null){
+                Dish dish=dishMapper.getById(shoppingCartDTO.getDishId());
+                shoppingCart.setName(dish.getName());
+                shoppingCart.setAmount(dish.getPrice());
+                shoppingCart.setImage(dish.getImage());
+            }
+            else{
+                Setmeal setmeal=setmealMapper.getBySetmealId(shoppingCartDTO.getSetmealId());
+                shoppingCart.setName(setmeal.getName());
+                shoppingCart.setAmount(setmeal.getPrice());
+                shoppingCart.setImage(setmeal.getImage());
+            }
+            shoppingCart.setNumber(1);
+            shoppingCart.setCreateTime(LocalDateTime.now());
+          shoppingCartMapper.insert(shoppingCart);
         }
 
     }
